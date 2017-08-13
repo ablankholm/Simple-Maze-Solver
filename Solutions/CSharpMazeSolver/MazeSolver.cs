@@ -66,14 +66,6 @@ namespace CSharpMazeSolver
                 currentTile = path.Last();
                 solution[currentTile] = TileKind.Path;
 
-                //Short-circuiting check
-                if (currentTile.Equals(challenge.Start))
-                {
-                    IsSolveable = false;
-                    solution.IsSolved = false;
-                    break;
-                }
-
                 //Get neighbours
                 neighbours = GetNeighbours(currentTile);
 
@@ -95,6 +87,13 @@ namespace CSharpMazeSolver
                 //Update path
                 if (neighbours.Count < 1)
                 {
+                    //Short-circuiting check
+                    if (currentTile.Equals(challenge.Start))
+                    {
+                        IsSolveable = false;
+                        solution.IsSolved = false;
+                        break;
+                    }
                     solution[currentTile] = TileKind.Passage;
                     path.Remove(currentTile);
                     deadEnds.Add(currentTile);
